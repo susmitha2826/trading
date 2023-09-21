@@ -1,0 +1,19 @@
+import requests
+import json
+def get_stock_price(symbol):
+  """Gets the current stock price for a given symbol."""
+  url = "https://api.iextrading.com/1.0/stock/{}/price".format(symbol)
+  response = requests.get(url)
+  return json.loads(response.content)
+def get_all_stock_prices():
+  """Gets the current stock prices for all stocks in the S&P 500."""
+  url = "https://api.iextrading.com/1.0/stock/market/list/snp500"
+  response = requests.get(url)
+  return json.loads(response.content)
+def main():
+  """Prints the current stock price for a given symbol."""
+  symbol = input("Enter a stock symbol: ")
+  price = get_stock_price(symbol)
+  print("The current stock price for {} is ${}.".format(symbol, price))
+if __name__ == "__main__":
+  main()
